@@ -83,7 +83,10 @@ char **separate_args(char *line, int *argc, bool *is_builtin)
     else if (strcmp(builtin_line, "not built-in") != 0)
     {
         *is_builtin = true;
-        evaluate(shell, builtin_line);
+
+        char *line_copy = strdup(builtin_line);
+        evaluate(shell, line_copy);
+        free(line_copy);
     }
 
     return argv;
